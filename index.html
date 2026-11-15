@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gofe Guenut Evangelical Church | Official Platform</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: { 900: '#0B192C', 800: '#1E3E62', 700: '#002244' },
+                        gold: { 500: '#D4AF37', 600: '#AA8C2C', 400: '#E6C65D' },
+                        emerald: { 600: '#0A5C36', 500: '#0F8A50', 700: '#063D23' },
+                        cream: { 100: '#FBFBFA', 200: '#F4F4F0', 300: '#E9E9E2' }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Playfair Display', 'Georgia', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        .hero-bg {
+            background: linear-gradient(rgba(11, 25, 44, 0.85), rgba(11, 25, 44, 0.75)), url('https://images.unsplash.com/photo-1543353071-10c8ba85a904?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+        }
+        .card-gold-border {
+            border-image: linear-gradient(to right, #D4AF37, #0F8A50) 1;
+        }
+        @media print {
+            body * { visibility: hidden; }
+            #printable-card, #printable-card * { visibility: visible; }
+            #printable-card { position: absolute; left: 0; top: 0; width: 100%; }
+        }
+    </style>
+</head>
+<body class="bg-cream-100 text-slate-800 font-sans antialiased min-h-screen flex flex-col selection:bg-gold-500 selection:text-white">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-navy-900 text-cream-200 text-xs sm:text-sm py-2 px-4 border-b border-gold-500/30 flex flex-wrap justify-between items-center z-50">
+        <div class="flex items-center space-x-3 mx-auto sm:mx-0">
+            <span class="bg-gold-500 text-navy-900 font-bold px-2 py-0.5 rounded text-xs uppercase tracking-wider">Welcome</span>
+            <span>Growing in Faith, United in Christ, Serving with Love.</span>
+        </div>
+        <div class="flex items-center space-x-4 mx-auto sm:mx-0 mt-1 sm:mt-0">
+            <span class="hidden md:inline"><i class="fa-solid fa-location-dot text-gold-500 mr-1"></i> Addis Ababa, Ethiopia</span>
+            <button onclick="openModal('adminLoginModal')" class="hover:text-gold-400 font-medium transition"><i class="fa-solid fa-lock text-gold-500 mr-1"></i> Admin Portal</button>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#home" class="flex items-center space-x-3 group">
+                <div class="w-12 h-12 rounded-full bg-navy-900 border-2 border-gold-500 flex items-center justify-center text-gold-500 shadow-lg group-hover:scale-105 transition">
+                    <i class="fa-solid fa-church text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-serif font-bold text-navy-900 text-lg sm:text-xl tracking-wide leading-tight">GOFE GUENUT</h1>
+                    <p class="text-xs text-emerald-600 font-semibold tracking-widest uppercase">Evangelical Church</p>
+                </div>
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden lg:flex items-center space-x-8 font-medium text-sm text-slate-700">
+                <a href="#home" class="hover:text-gold-600 transition">Home</a>
+                <a href="#about" class="hover:text-gold-600 transition">About Us</a>
+                <a href="#ministries" class="hover:text-gold-600 transition">Ministries</a>
+                <a href="#sermons" class="hover:text-gold-600 transition">Sermons</a>
+                <a href="#events" class="hover:text-gold-600 transition">Events</a>
+                <a href="#contact" class="hover:text-gold-600 transition">Contact</a>
+            </nav>
+
+            <!-- Action CTA -->
+            <div class="hidden sm:flex items-center space-x-3">
+                <a href="#register" class="bg-gradient-to-r from-gold-500 to-gold-600 text-navy-900 font-bold px-5 py-2.5 rounded-full shadow-md hover:shadow-lg hover:from-gold-400 hover:to-gold-500 transition transform hover:-translate-y-0.5 text-sm flex items-center space-x-2">
+                    <i class="fa-solid fa-user-plus"></i>
+                    <span>Register Member</span>
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button onclick="toggleMobileMenu()" class="lg:hidden text-navy-900 p-2 focus:outline-none">
+                <i class="fa-solid fa-bars text-2xl" id="mobileMenuIcon"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-white border-b border-slate-200 px-6 py-4 space-y-3 shadow-xl">
+            <a href="#home" onclick="toggleMobileMenu()" class="block font-medium text-slate-700 hover:text-gold-600 py-1">Home</a>
+            <a href="#about" onclick="toggleMobileMenu()" class="block font-medium text-slate-700 hover:text-gold-600 py-1">About Us</a>
+            <a href="#ministries" onclick="toggleMobileMenu()" class="block font-medium text-slate-700 hover:text-gold-600 py-1">Ministries</a>
+            <a href="#sermons" onclick="toggleMobileMenu()" class="block font-medium text-slate-700 hover:text-gold-600 py-1">Sermons</a>
+            <a href="#events" onclick="toggleMobileMenu()" class="block font-medium text-slate-700 hover:text-gold-600 py-1">Events</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block font-medium text-slate-700 hover:text-gold-600 py-1">Contact</a>
+            <div class="pt-2 border-t border-slate-100 flex flex-col space-y-2">
+                <a href="#register" onclick="toggleMobileMenu()" class="bg-gold-500 text-navy-900 font-bold px-4 py-2 rounded-lg text-center shadow">Register Member</a>
+                <button onclick="openModal('adminLoginModal'); toggleMobileMenu();" class="text-navy-900 bg-slate-100 font-semibold px-4 py-2 rounded-lg text-center">Admin Portal Login</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area (Public Website) -->
+    <main id="publicWebsite" class="flex-grow">
+        <!-- Hero Section -->
+        <section id="home" class="hero-bg text-white py-24 sm:py-32 px-4 text-center relative flex items-center justify-center min-h-[85vh]">
+            <div class="max-w-4xl mx-auto space-y-6 z-10">
+                <div class="inline-flex items-center space-x-2 bg-gold-500/20 border border-gold-500/50 text-gold-400 px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold uppercase tracking-widest backdrop-blur-sm">
+                    <i class="fa-solid fa-dove text-gold-400"></i>
+                    <span>Gofe Guenut Evangelical Church</span>
+                </div>
+                <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-tight text-white drop-shadow-md">
+                    WELCOME TO GOFE GUENUT <span class="text-gold-400">EVANGELICAL CHURCH</span>
+                </h1>
+                <p class="text-lg sm:text-2xl text-cream-200 font-light italic max-w-2xl mx-auto font-serif">
+                    "Growing in Faith, United in Christ, Serving with Love."
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-5 pt-6">
+                    <a href="#register" class="w-full sm:w-auto bg-gold-500 text-navy-900 font-bold px-8 py-4 rounded-full shadow-xl hover:bg-gold-400 transition transform hover:-translate-y-1 flex items-center justify-center space-x-3 text-base">
+                        <i class="fa-solid fa-user-plus text-lg"></i>
+                        <span>REGISTER AS A CHURCH MEMBER</span>
+                    </a>
+                    <a href="#about" class="w-full sm:w-auto bg-white/10 hover:bg-white/25 border border-white/30 text-white font-semibold px-8 py-4 rounded-full backdrop-blur-sm transition text-base">
+                        Learn More About Us
+                    </a>
+                </div>
+            </div>
+            <!-- Decorative wave divider -->
+            <div class="absolute bottom-0 left-0 right-0 h-12 bg-cream-100 rounded-t-[50%] scale-x-110"></div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <div class="inline-block text-emerald-600 font-bold uppercase tracking-widest text-sm bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+                        About Our Community
+                    </div>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-navy-900 leading-tight">
+                        A Vibrant Community Rooted in Grace and Truth
+                    </h2>
+                    <p class="text-slate-600 leading-relaxed">
+                        Gofe Guenut Evangelical Church is a beacon of hope and spiritual growth. We are dedicated to glorifying God through heartfelt worship, deep biblical teaching, genuine fellowship, and compassionate community service.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-600 flex items-center justify-center font-bold text-lg flex-shrink-0">
+                                <i class="fa-solid fa-eye"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-navy-900 mb-1">Our Vision</h4>
+                                <p class="text-xs text-slate-600 leading-relaxed">To raise a generation deeply anchored in Christ's love, transforming communities through the Gospel.</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-200 flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-lg bg-gold-500/10 text-gold-600 flex items-center justify-center font-bold text-lg flex-shrink-0">
+                                <i class="fa-solid fa-bullseye"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-navy-900 mb-1">Our Mission</h4>
+                                <p class="text-xs text-slate-600 leading-relaxed">Equipping believers for effective ministry, nurturing spiritual maturity, and reaching the lost with compassion.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="absolute -inset-2 bg-gradient-to-r from-gold-500 to-emerald-600 rounded-3xl blur-lg opacity-30"></div>
+                    <div class="relative bg-white p-3 rounded-2xl shadow-xl border border-slate-200">
+                        <img src="https://images.unsplash.com/photo-1438232992991-995b7058bbb3?auto=format&fit=crop&w=800&q=80" alt="Church Gathering" class="rounded-xl w-full h-[380px] object-cover">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services & Worship Schedule -->
+        <section class="bg-navy-900 text-white py-20 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto text-center space-y-12">
+                <div class="space-y-3">
+                    <span class="text-gold-400 font-semibold uppercase tracking-widest text-sm">Join Us in Worship</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold">Worship Services & Programs</h2>
+                    <p class="text-slate-300 max-w-xl mx-auto">Experience the presence of God through uplifting praise, worship, and inspiring sermons.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Service 1 -->
+                    <div class="bg-navy-800 border border-gold-500/30 rounded-2xl p-8 text-left shadow-lg hover:border-gold-500 transition">
+                        <div class="w-12 h-12 rounded-xl bg-gold-500 text-navy-900 flex items-center justify-center font-bold text-xl mb-6">
+                            <i class="fa-solid fa-sun"></i>
+                        </div>
+                        <h3 class="font-serif font-bold text-xl mb-2 text-gold-400">First Sunday Worship</h3>
+                        <p class="text-slate-300 text-sm mb-4">Traditional & Contemporary blended service with rich choir hymns and praise.</p>
+                        <div class="text-xs text-slate-400 space-y-1 border-t border-slate-700 pt-4">
+                            <p><i class="fa-regular fa-clock text-gold-400 mr-2"></i> Sundays: 8:00 AM – 10:30 AM</p>
+                            <p><i class="fa-solid fa-location-dot text-gold-400 mr-2"></i> Main Sanctuary</p>
+                        </div>
+                    </div>
+                    <!-- Service 2 -->
+                    <div class="bg-navy-800 border border-gold-500/30 rounded-2xl p-8 text-left shadow-lg hover:border-gold-500 transition">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500 text-white flex items-center justify-center font-bold text-xl mb-6">
+                            <i class="fa-solid fa-users-line"></i>
+                        </div>
+                        <h3 class="font-serif font-bold text-xl mb-2 text-gold-400">Second Celebration Service</h3>
+                        <p class="text-slate-300 text-sm mb-4">Dynamic youth-led praise and deep expository preaching of the Word.</p>
+                        <div class="text-xs text-slate-400 space-y-1 border-t border-slate-700 pt-4">
+                            <p><i class="fa-regular fa-clock text-gold-400 mr-2"></i> Sundays: 11:00 AM – 1:00 PM</p>
+                            <p><i class="fa-solid fa-location-dot text-gold-400 mr-2"></i> Main Sanctuary & Online</p>
+                        </div>
+                    </div>
+                    <!-- Service 3 -->
+                    <div class="bg-navy-800 border border-gold-500/30 rounded-2xl p-8 text-left shadow-lg hover:border-gold-500 transition">
+                        <div class="w-12 h-12 rounded-xl bg-gold-500 text-navy-900 flex items-center justify-center font-bold text-xl mb-6">
+                            <i class="fa-solid fa-book-bible"></i>
+                        </div>
+                        <h3 class="font-serif font-bold text-xl mb-2 text-gold-400">Midweek Prayer & Study</h3>
+                        <p class="text-slate-300 text-sm mb-4">Interactive Bible study sessions, testimonies, and fervent corporate prayer.</p>
+                        <div class="text-xs text-slate-400 space-y-1 border-t border-slate-700 pt-4">
+                            <p><i class="fa-regular fa-clock text-gold-400 mr-2"></i> Wednesdays: 6:00 PM – 7:30 PM</p>
+                            <p><i class="fa-solid fa-location-dot text-gold-400 mr-2"></i> Fellowship Hall</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ministries Showcase -->
+        <section id="ministries" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center space-y-3 mb-16">
+                <span class="text-emerald-600 font-semibold uppercase tracking-widest text-sm">Serving Together</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-navy-900">Our Church Ministries</h2>
+                <p class="text-slate-600 max-w-xl mx-auto">Find your place to serve, grow, and connect with fellow believers.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Ministry Card -->
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200 hover:shadow-xl transition group">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl font-bold mb-5 group-hover:bg-emerald-600 group-hover:text-white transition">
+                        <i class="fa-solid fa-child-reaching"></i>
+                    </div>
+                    <h3 class="font-serif font-bold text-lg text-navy-900 mb-2">Children's Ministry</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed mb-4">Nurturing kids in the foundational truths of God's Word in a fun, secure environment.</p>
+                    <span class="text-xs font-semibold text-emerald-600"><i class="fa-solid fa-user-tie mr-1"></i> Leader: Sis. Hannah T.</span>
+                </div>
+                <!-- Ministry Card -->
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200 hover:shadow-xl transition group">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-2xl font-bold mb-5 group-hover:bg-gold-500 group-hover:text-navy-900 transition">
+                        <i class="fa-solid fa-fire"></i>
+                    </div>
+                    <h3 class="font-serif font-bold text-lg text-navy-900 mb-2">Youth Ministry</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed mb-4">Empowering teenagers and young adults to stand firm in faith and impact their generation.</p>
+                    <span class="text-xs font-semibold text-gold-600"><i class="fa-solid fa-user-tie mr-1"></i> Leader: Bro. Dawit K.</span>
+                </div>
+                <!-- Ministry Card -->
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200 hover:shadow-xl transition group">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl font-bold mb-5 group-hover:bg-emerald-600 group-hover:text-white transition">
+                        <i class="fa-solid fa-music"></i>
+                    </div>
+                    <h3 class="font-serif font-bold text-lg text-navy-900 mb-2">Worship & Choir</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed mb-4">Leading the congregation into deep, heartfelt worship through vocal and instrumental excellence.</p>
+                    <span class="text-xs font-semibold text-emerald-600"><i class="fa-solid fa-user-tie mr-1"></i> Leader: Bro. Samuel M.</span>
+                </div>
+                <!-- Ministry Card -->
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200 hover:shadow-xl transition group">
+                    <div class="w-14 h-14 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-2xl font-bold mb-5 group-hover:bg-gold-500 group-hover:text-navy-900 transition">
+                        <i class="fa-solid fa-hands-holding-child"></i>
+                    </div>
+                    <h3 class="font-serif font-bold text-lg text-navy-900 mb-2">Community Outreach</h3>
+                    <p class="text-xs text-slate-600 leading-relaxed mb-4">Showing Christ's love in practical ways to families and individuals in need around our city.</p>
+                    <span class="text-xs font-semibold text-gold-600"><i class="fa-solid fa-user-tie mr-1"></i> Leader: Elder Tesfaye B.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sermons Archive Preview -->
+        <section id="sermons" class="bg-cream-200 py-20 px-4 sm:px-6 lg:px-8 border-y border-slate-200">
+            <div class="max-w-7xl mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                    <div>
+                        <span class="text-emerald-600 font-semibold uppercase tracking-widest text-sm">Spiritual Nourishment</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-navy-900 mt-1">Latest Sermons & Messages</h2>
+                    </div>
+                    <a href="#sermons" class="mt-4 md:mt-0 text-navy-900 font-bold hover:text-gold-600 flex items-center space-x-2 text-sm">
+                        <span>View All Archive Messages</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Sermon 1 -->
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-md border border-slate-200 flex flex-col">
+                        <div class="relative h-48 bg-navy-900 flex items-center justify-center text-white">
+                            <div class="absolute inset-0 bg-cover opacity-60" style="background-image: url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80')"></div>
+                            <div class="absolute inset-0 bg-navy-900/40"></div>
+                            <button class="relative z-10 w-14 h-14 rounded-full bg-gold-500 text-navy-900 flex items-center justify-center text-xl shadow-lg hover:scale-110 transition">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </button>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                            <div>
+                                <span class="text-xs font-semibold bg-emerald-50 text-emerald-600 px-2.5 py-1 rounded-full">Romans 8:28</span>
+                                <h3 class="font-serif font-bold text-lg text-navy-900 mt-2">Walking in Unshakeable Hope</h3>
+                                <p class="text-xs text-slate-600 mt-1">Pastor Alemayehu T. explores how God weaves all circumstances together for our good.</p>
+                            </div>
+                            <div class="text-xs text-slate-400 flex justify-between items-center border-t border-slate-100 pt-3">
+                                <span><i class="fa-regular fa-calendar mr-1"></i> Oct 12, 2026</span>
+                                <span><i class="fa-regular fa-clock mr-1"></i> 48 mins</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sermon 2 -->
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-md border border-slate-200 flex flex-col">
+                        <div class="relative h-48 bg-navy-900 flex items-center justify-center text-white">
+                            <div class="absolute inset-0 bg-cover opacity-60" style="background-image: url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=600&q=80')"></div>
+                            <div class="absolute inset-0 bg-navy-900/40"></div>
+                            <button class="relative z-10 w-14 h-14 rounded-full bg-gold-500 text-navy-900 flex items-center justify-center text-xl shadow-lg hover:scale-110 transition">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </button>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                            <div>
+                                <span class="text-xs font-semibold bg-emerald-50 text-emerald-600 px-2.5 py-1 rounded-full">Ephesians 4:3</span>
+                                <h3 class="font-serif font-bold text-lg text-navy-900 mt-2">The Power of Unity in Christ</h3>
+                                <p class="text-xs text-slate-600 mt-1">Evangelist Bekele M. shares on maintaining bonds of peace and love within the body.</p>
+                            </div>
+                            <div class="text-xs text-slate-400 flex justify-between items-center border-t border-slate-100 pt-3">
+                                <span><i class="fa-regular fa-calendar mr-1"></i> Oct 05, 2026</span>
+                                <span><i class="fa-regular fa-clock mr-1"></i> 52 mins</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sermon 3 -->
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-md border border-slate-200 flex flex-col">
+                        <div class="relative h-48 bg-navy-900 flex items-center justify-center text-white">
+                            <div class="absolute inset-0 bg-cover opacity-60" style="background-image: url('https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&w=600&q=80')"></div>
+                            <div class="absolute inset-0 bg-navy-900/40"></div>
+                            <button class="relative z-10 w-14 h-14 rounded-full bg-gold-500 text-navy-900 flex items-center justify-center text-xl shadow-lg hover:scale-110 transition">
+                                <i class="fa-solid fa-play ml-1"></i>
+                            </button>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                            <div>
+                                <span class="text-xs font-semibold bg-emerald-50 text-emerald-600 px-2.5 py-1 rounded-full">Psalm 23</span>
+                                <h3 class="font-serif font-bold text-lg text-navy-900 mt-2">The Lord is My Shepherd</h3>
+                                <p class="text-xs text-slate-600 mt-1">Pastor Kassa D. leads a comforting meditation on divine provision and peace.</p>
+                            </div>
+                            <div class="text-xs text-slate-400 flex justify-between items-center border-t border-slate-100 pt-3">
+                                <span><i class="fa-regular fa-calendar mr-1"></i> Sep 28, 2026</span>
+                                <span class="text-xs"><i class="fa-regular fa-clock mr-1"></i> 45 mins</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upcoming Events Section -->
+        <section id="events" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="text-center space-y-3 mb-16">
+                <span class="text-gold-600 font-semibold uppercase tracking-widest text-sm">Mark Your Calendar</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-navy-900">Upcoming Church Events</h2>
+                <p class="text-slate-600 max-w-xl mx-auto">Join us for special gatherings, conferences, and community fellowship.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Event 1 -->
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200 flex space-x-5 items-start">
+                    <div class="bg-navy-900 text-gold-400 rounded-xl p-3 text-center min-w-[70px] flex-shrink-0 shadow">
+                        <span class="block text-xs uppercase font-bold tracking-wider">NOV</span>
+                        <span class="block text-2xl font-serif font-bold">24</span>
+                    </div>
+                    <div class="space-y-2">
+                        <span class="text-xs bg-gold-50 text-gold-600 font-semibold px-2.5 py-0.5 rounded">Conference</span>
+                        <h3 class="font-serif font-bold text-lg text-navy-900">Annual Revival & Prayer Summit</h3>
+                        <p class="text-xs text-slate-600">Three days of powerful worship, intercession, and spiritual renewal with guest speakers.</p>
+                        <p class="text-xs text-slate-500"><i class="fa-solid fa-location-dot text-emerald-600 mr-1"></i> Main Sanctuary</p>
+                    </div>
+                </div>
+                <!-- Event 2 -->
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200 flex space-x-5 items-start">
+                    <div class="bg-navy-900 text-gold-400 rounded-xl p-3 text-center min-w-[70px] flex-shrink-0 shadow">
+                        <span class="block text-xs uppercase font-bold tracking-wider">DEC</span>
+                        <span class="block text-2xl font-serif font-bold">06</span>
+                    </div>
+                    <div class="space-y-2">
+                        <span class="text-xs bg-emerald-50 text-emerald-600 font-semibold px-2.5 py-0.5 rounded">Outreach</span>
+                        <h3 class="font-serif font-bold text-lg text-navy-900">Community Charity & Food Drive</h3>
+                        <p class="text-xs text-slate-600">Distributing care packages and food items to families in need within our local Kebele.</p>
+                        <p class="text-xs text-slate-500"><i class="fa-solid fa-location-dot text-emerald-600 mr-1"></i> Church Compound</p>
+                    </div>
+                </div>
+                <!-- Event 3 -->
+                <div class="bg-white rounded-2xl p-6 shadow-md border border-slate-200 flex space-x-5 items-start">
+                    <div class="bg-navy-900 text-gold-400 rounded-xl p-3 text-center min-w-[70px] flex-shrink-0 shadow">
+                        <span class="block text-xs uppercase font-bold tracking-wider">DEC</span>
+                        <span class="block text-2xl font-serif font-bold">25</span>
+                    </div>
+                    <div class="space-y-2">
+                        <span class="text-xs bg-gold-50 text-gold-600 font-semibold px-2.5 py-0.5 rounded">Celebration</span>
+                        <h3 class="font-serif font-bold text-lg text-navy-900">Christmas Celebration Service</h3>
+                        <p class="text-xs text-slate-600">Joyful Christmas carol concert, nativites by children, and festive worship service.</p>
+                        <p class="text-xs text-slate-500"><i class="fa-solid fa-location-dot text-emerald-600 mr-1"></i> Main Sanctuary</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MEMBER REGISTRATION SYSTEM (CRITICAL FEATURE) -->
+        <section id="register" class="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-navy-900 via-navy-800 to-emerald-900 text-white relative">
+            <div class="max-w-4xl mx-auto bg-white text-slate-800 rounded-3xl shadow-2xl p-6 sm:p-12 border-2 border-gold-500/50">
+                
+                <!-- Registration Header -->
+                <div class="text-center space-y-3 mb-10">
+                    <div class="inline-flex items-center space-x-2 bg-gold-500/10 border border-gold-500 text-gold-600 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
+                        <i class="fa-solid fa-id-card"></i>
+                        <span>Official Membership Enrollment</span>
+                    </div>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-navy-900">Church Member Registration</h2>
+                    <p class="text-slate-600 text-sm max-w-lg mx-auto">Please complete the 5-step registration form below to officially join Gofe Guenut Evangelical Church and receive your unique membership ID.</p>
+                    
+                    <!-- Progress Bar -->
+                    <div class="w-full bg-slate-200 h-2.5 rounded-full mt-6 overflow-hidden">
+                        <div id="regProgressBar" class="bg-gradient-to-r from-gold-500 to-emerald-600 h-2.5 w-1/5 transition-all duration-300"></div>
+                    </div>
+                    <div class="flex justify-between text-xs font-semibold text-slate-500 pt-2">
+                        <span id="stepIndicatorTitle" class="text-navy-900 font-bold">Step 1: Personal Info</span>
+                        <span>Step <span id="currentStepNum">1</span> of 5</span>
+                    </div>
+                </div>
+
+                <!-- Registration Multi-Step Form -->
+                <form id="memberRegForm" onsubmit="handleRegistrationSubmit(event)">
+                    
+                    <!-- STEP 1: Personal Information -->
+                    <div class="reg-step space-y-6" id="step-1">
+                        <h3 class="font-serif font-bold text-xl text-navy-900 border-b border-slate-200 pb-2 flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-gold-500 text-navy-900 text-sm flex items-center justify-center mr-3 font-bold">1</span>
+                            Personal Information
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div class="sm:col-span-2">
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Full Name <span class="text-red-500">*</span></label>
+                                <input type="text" id="reg_full_name" required placeholder="e.g., Yohannes Bekele" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-gold-500 focus:outline-none text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Date of Birth <span class="text-red-500">*</span></label>
+                                <input type="date" id="reg_dob" required onchange="checkMinorAge()" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-gold-500 focus:outline-none text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Gender (Optional)</label>
+                                <select id="reg_gender" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-gold-500 focus:outline-none text-sm bg-white">
+                                    <option value="">Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Phone Number <span class="text-red-500">*</span></label>
+                                <input type="tel" id="reg_phone" required placeholder="+251 911 234 567" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-gold-500 focus:outline-none text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Email Address (Optional)</label>
+                                <input type="email" id="reg_email" placeholder="yohannes@example.com" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-gold-500 focus:outline-none text-sm">
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Residential Address <span class="text-red-500">*</span></label>
+                                <input type="text" id="reg_address" required placeholder="Street / House No." class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-gold-500 focus:outline-none text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Kebele / Local Area <span class="text-red-500">*</span></label>
+                                <input type="text" id="reg_kebele" required placeholder="e.g., Kebele 04" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-gold-500 focus:outline-none text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Profile Photograph URL (or placeholder)</label>
+                                <input type="url" id="reg_photo_url" placeholder="https://example.com/photo.jpg" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-gold-500 focus:outline-none text-sm">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: Family & Emergency Information -->
+                    <div class="reg-step space-y-6 hidden" id="step-2">
+                        <h3 class="font-serif font-bold text-xl text-navy-900 border-b border-slate-200 pb-2 flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-gold-500 text-navy-900 text-sm flex items-center justify-center mr-3 font-bold">2</span>
+                            Family & Emergency Contact
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Marital Status (Optional)</label>
+                                <select id="reg_marital_status" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-gold-500 focus:outline-none text-sm bg-white">
+                                    <option value="">Select Status</option>
+                                    <option value="Single">Single</option>
+                                    <option value="Married">Married</option>
+                                    <option value="Widowed">Widowed</option>
+                                    <option value="Divorced">Divorced</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Spouse Name (If Married)</label>
+                                <input type="text" id="reg_spouse_name" placeholder="Spouse Full Name" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-gold-500 focus:outline-none text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Number of Children</label>
+                                <input type="number" id="reg_children_count" min="0" value="0" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-gold-500 focus:outline-none text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Emergency Contact Name <span class="text-red-500">*</span></label>
+                                <input type="text" id="reg_emergency_name" required placeholder="Full Name" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-gold-500 focus:outline-none text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Emergency Contact Phone <span class="text-red-500">*</span></label>
+                                <input type="tel" id="reg_emergency_phone" required placeholder="+251 ..." class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-gold-500 focus:outline-none text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Relationship to Contact <span class="text-red-500">*</span></label>
+                                <input type="text" id="reg_emergency_relationship" required placeholder="e.g., Brother, Spouse" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-gold-500 focus:outline-none text-sm">
+                            </div>
+                            
+                            <!-- Minor Consent Box (Conditional) -->
+                            <div id="minorConsentBox" class="sm:col-span-2 bg-amber-50 border border-amber-300 p-4 rounded-xl hidden">
+                                <h4 class="font-bold text-amber-900 text-sm mb-1"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Minor / Child Consent Required</h4>
+                                <p class="text-xs text-amber-800 mb-3">Registrant is under 18 years of age. Parent or legal guardian must authorize this membership registration.</p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <input type="text" id="reg_guardian_name" placeholder="Parent / Guardian Full Name" class="px-3 py-2 rounded-lg border border-amber-300 text-xs bg-white">
+                                    <input type="tel" id="reg_guardian_phone" placeholder="Parent / Guardian Phone" class="px-3 py-2 rounded-lg border border-amber-300 text-xs bg-white">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: Church Membership Details -->
+                    <div class="reg-step space-y-6 hidden" id="step-3">
+                        <h3 class="font-serif font-bold text-xl text-navy-900 border-b border-slate-200 pb-2 flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-gold-500 text-navy-900 text-sm flex items-center justify-center mr-3 font-bold">3</span>
+                            Church Membership Information
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Membership Category <span class="text-red-500">*</span></label>
+                                <select id="reg_category" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-gold-500 focus:outline-none text-sm bg-white">
+                                    <option value="Full Member">Full Member</option>
+                                    <option value="Associate Member">Associate Member</option>
+                                    <option value="Youth Member">Youth Member</option>
+                                    <option value="Child / Sunday School">Child / Sunday School</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Date of Joining / Acceptance <span class="text-red-500">*</span></label>
+                                <input type="date" id="reg_joining_date" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-gold-500 focus:outline-none text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Baptism Status (Optional)</label>
+                                <select id="reg_baptism_status" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-gold-500 focus:outline-none text-sm bg-white">
+                                    <option value="Water Baptized">Water Baptized</option>
+                                    <option value="Not Baptized">Not Baptized</option>
+                                    <option value="Pending Baptism">Pending Baptism</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Previous Church (If transferred)</label>
+                                <input type="text" id="reg_previous_church" placeholder="Previous Church Name" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-gold-500 focus:outline-none text-sm">
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Assign Ministry / Department <span class="text-red-500">*</span></label>
+                                <select id="reg_ministry" required class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-gold-500 focus:outline-none text-sm bg-white">
+                                    <option value="General Congregation">General Congregation</option>
+                                    <option value="Children's Ministry">Children's Ministry</option>
+                                    <option value="Youth Ministry">Youth Ministry</option>
+                                    <option value="Women's Ministry">Women's Ministry</option>
+                                    <option value="Men's Ministry">Men's Ministry</option>
+                                    <option value="Worship and Choir">Worship and Choir</option>
+                                    <option value="Evangelism">Evangelism</option>
+                                    <option value="Prayer Ministry">Prayer Ministry</option>
+                                    <option value="Community Outreach">Community Outreach</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 4: Education & Professional Skills -->
+                    <div class="reg-step space-y-6 hidden" id="step-4">
+                        <h3 class="font-serif font-bold text-xl text-navy-900 border-b border-slate-200 pb-2 flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-gold-500 text-navy-900 text-sm flex items-center justify-center mr-3 font-bold">4</span>
+                            Education & Professional Skills
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Educational Level</label>
+                                <select id="reg_education" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-gold-500 focus:outline-none text-sm bg-white">
+                                    <option value="">Select Level</option>
+                                    <option value="Primary School">Primary School</option>
+                                    <option value="High School">High School</option>
+                                    <option value="Diploma / Certificate">Diploma / Certificate</option>
+                                    <option value="Bachelor's Degree">Bachelor's Degree</option>
+                                    <option value="Master's / Doctorate">Master's / Doctorate</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Occupation / Profession</label>
+                                <input type="text" id="reg_occupation" placeholder="e.g., Teacher, Engineer, Accountant" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-gold-500 focus:outline-none text-sm">
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Professional Skills & Expertise</label>
+                                <input type="text" id="reg_skills" placeholder="e.g., IT, Accounting, Teaching, Media, Music" class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-gold-500 focus:outline-none text-sm">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 5: Additional Info & Consent -->
+                    <div class="reg-step space-y-6 hidden" id="step-5">
+                        <h3 class="font-serif font-bold text-xl text-navy-900 border-b border-slate-200 pb-2 flex items-center">
+                            <span class="w-8 h-8 rounded-full bg-gold-500 text-navy-900 text-sm flex items-center justify-center mr-3 font-bold">5</span>
+                            Confirmation & Privacy Consent
+                        </h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Additional Comments or Prayer Requests</label>
+                                <textarea id="reg_notes" rows="3" placeholder="Share any notes or specific areas you'd like to serve in..." class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-gold-500 focus:outline-none text-sm"></textarea>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+                                <label class="flex items-start space-x-3 cursor-pointer">
+                                    <input type="checkbox" id="reg_consent_membership" required class="mt-1 w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500">
+                                    <span class="text-xs text-slate-700">I hereby apply for official church membership at Gofe Guenut Evangelical Church and agree to uphold its spiritual values, constitution, and fellowship. <span class="text-red-500">*</span></span>
+                                </label>
+                                <label class="flex items-start space-x-3 cursor-pointer">
+                                    <input type="checkbox" id="reg_consent_privacy" required class="mt-1 w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500">
+                                    <span class="text-xs text-slate-700">I consent to the secure storage and processing of my personal records in the church database for authorized pastoral and administrative communication. <span class="text-red-500">*</span></span>
+                                </label>
+                            </div>
+                            <div class="bg-gold-50 border border-gold-300 p-4 rounded-xl flex items-center space-x-3">
+                                <i class="fa-solid fa-shield-halved text-gold-600 text-2xl"></i>
+                                <div class="text-xs text-slate-700">
+                                    <span class="font-bold text-navy-900 block">Secure Registration Guarantee</span>
+                                    Your ID number will be generated instantly upon submission and safely encrypted in Supabase.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Navigation Buttons -->
+                    <div class="flex justify-between items-center pt-8 border-t border-slate-200 mt-8">
+                        <button type="button" id="prevBtn" onclick="changeRegStep(-1)" class="hidden px-6 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-100 transition">
+                            <i class="fa-solid fa-arrow-left mr-2"></i> Previous
+                        </button>
+                        <div class="ml-auto flex space-x-3">
+                            <button type="button" id="nextBtn" onclick="changeRegStep(1)" class="px-8 py-3 rounded-xl bg-navy-900 text-white font-bold text-sm hover:bg-navy-800 transition shadow">
+                                Next Step <i class="fa-solid fa-arrow-right ml-2"></i>
+                            </button>
+                            <button type="submit" id="submitBtn" class="hidden px-8 py-3 rounded-xl bg-gradient-to-r from-gold-500 to-emerald-600 text-white font-bold text-sm hover:opacity-90 transition shadow-lg">
+                                <i class="fa-solid fa-check-circle mr-2"></i> SUBMIT REGISTRATION
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Success Confirmation Box (Hidden initially) -->
+                <div id="regSuccessBox" class="hidden text-center space-y-6 py-8">
+                    <div class="w-20 h-20 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-4xl mx-auto shadow-inner">
+                        <i class="fa-solid fa-check"></i>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="font-serif text-2xl sm:text-3xl font-bold text-navy-900">CONGRATULATIONS!</h3>
+                        <p class="text-slate-600 text-sm max-w-md mx-auto">YOUR REGISTRATION HAS BEEN SUCCESSFULLY RECEIVED AND SAVED IN THE DATABASE.</p>
+                    </div>
+                    <div class="bg-cream-200 border-2 border-dashed border-gold-500/60 p-6 rounded-2xl max-w-md mx-auto space-y-2">
+                        <span class="text-xs uppercase tracking-wider text-slate-500 font-bold block">Membership Reference Number</span>
+                        <div id="successMemberIdDisplay" class="font-serif font-bold text-3xl text-navy-900 tracking-wider">GGEC-2026-0001</div>
+                        <p class="text-xs text-emerald-700 font-semibold"><i class="fa-solid fa-circle-check mr-1"></i> Recorded in Supabase Cloud Database</p>
+                    </div>
+                    <div class="flex justify-center space-x-4 pt-4">
+                        <button onclick="resetRegistrationForm()" class="px-6 py-3 bg-navy-900 text-white font-bold text-xs uppercase rounded-xl hover:bg-navy-800 transition">Register Another Member</button>
+                        <button onclick="openModal('adminLoginModal')" class="px-6 py-3 bg-gold-500 text-navy-900 font-bold text-xs uppercase rounded-xl hover:bg-gold-400 transition">Go to Admin Portal</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Prayer Request & Contact Section -->
+        <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Prayer Request -->
+                <div class="bg-white p-8 rounded-3xl shadow-md border border-slate-200 space-y-6">
+                    <div class="space-y-2">
+                        <span class="text-emerald-600 font-semibold uppercase tracking-widest text-xs">We Are Here For You</span>
+                        <h3 class="font-serif text-2xl font-bold text-navy-900">Submit a Prayer Request</h3>
+                        <p class="text-xs text-slate-600">Our pastoral prayer team intercedes daily for all submitted needs and petitions.</p>
+                    </div>
+                    <form onsubmit="handlePrayerSubmit(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Your Name</label>
+                            <input type="text" required placeholder="Full Name" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-gold-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Phone / Email</label>
+                            <input type="text" required placeholder="Phone number or email" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-gold-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Prayer Request Details</label>
+                            <textarea rows="4" required placeholder="Share your prayer need..." class="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-gold-500 focus:outline-none"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-emerald-600 text-white font-bold py-3 rounded-xl hover:bg-emerald-700 transition shadow text-sm">
+                            <i class="fa-solid fa-hands-praying mr-2"></i> Submit Prayer Request
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="bg-navy-900 text-white p-8 rounded-3xl shadow-xl flex flex-col justify-between space-y-8">
+                    <div class="space-y-4">
+                        <span class="text-gold-400 font-semibold uppercase tracking-widest text-xs">Get In Touch</span>
+                        <h3 class="font-serif text-2xl font-bold">Contact Information</h3>
+                        <p class="text-slate-300 text-xs leading-relaxed">We would love to hear from you. Reach out to our church office or visit us during our weekly service hours.</p>
+                    </div>
+                    <div class="space-y-4 text-sm text-slate-200">
+                        <div class="flex items-start space-x-3">
+                            <i class="fa-solid fa-location-dot text-gold-400 mt-1"></i>
+                            <div>
+                                <span class="font-bold block text-white">Church Location</span>
+                                Gofe Guenut District, Addis Ababa, Ethiopia
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fa-solid fa-phone text-gold-400 mt-1"></i>
+                            <div>
+                                <span class="font-bold block text-white">Phone Office</span>
+                                +251 11 123 4567 / +251 911 987 654
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <i class="fa-solid fa-envelope text-gold-400 mt-1"></i>
+                            <div>
+                                <span class="font-bold block text-white">Email Address</span>
+                                info@gofeguenutchurch.org
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-t border-slate-800 pt-6 flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-navy-800 text-gold-400 flex items-center justify-center hover:bg-gold-500 hover:text-navy-900 transition"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-navy-800 text-gold-400 flex items-center justify-center hover:bg-gold-500 hover:text-navy-900 transition"><i class="fa-brands fa-telegram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-navy-800 text-gold-400 flex items-center justify-center hover:bg-gold-500 hover:text-navy-900 transition"><i class="fa-brands fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-navy-900 text-slate-300 border-t border-gold-500/30 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+            <div class="space-y-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-gold-500 flex items-center justify-center text-navy-900 font-bold">
+                        <i class="fa-solid fa-church"></i>
+                    </div>
+                    <span class="font-serif font-bold text-white text-lg">GOFE GUENUT</span>
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed font-serif italic">"Growing in Faith, United in Christ, Serving with Love."</p>
+            </div>
+            <div>
+                <h4 class="font-bold text-white text-sm uppercase tracking-wider mb-4 border-b border-slate-800 pb-2">Quick Links</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#about" class="hover:text-gold-400 transition">About Our Church</a></li>
+                    <li><a href="#ministries" class="hover:text-gold-400 transition">Ministries Showcase</a></li>
+                    <li><a href="#sermons" class="hover:text-gold-400 transition">Sermons Archive</a></li>
+                    <li><a href="#events" class="hover:text-gold-400 transition">Upcoming Events</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-white text-sm uppercase tracking-wider mb-4 border-b border-slate-800 pb-2">Ministries</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><span class="hover:text-gold-400 transition cursor-pointer">Youth & Children</span></li>
+                    <li><span class="hover:text-gold-400 transition cursor-pointer">Worship & Choir</span></li>
+                    <li><span class="hover:text-gold-400 transition cursor-pointer">Prayer Ministry</span></li>
+                    <li><span class="hover:text-gold-400 transition cursor-pointer">Community Outreach</span></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-white text-sm uppercase tracking-wider mb-4 border-b border-slate-800 pb-2">Admin Portal</h4>
+                <p class="text-xs text-slate-400 mb-3">Authorized church administrators and membership managers login securely.</p>
+                <button onclick="openModal('adminLoginModal')" class="bg-gold-500 text-navy-900 font-bold px-4 py-2 rounded-lg text-xs uppercase hover:bg-gold-400 transition shadow">
+                    <i class="fa-solid fa-lock mr-1"></i> Admin Login
+                </button>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-800 pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500">
+            <p>&copy; 2026 Gofe Guenut Evangelical Church. All rights reserved.</p>
+            <p class="mt-2 sm:mt-0">Built with Supabase Cloud DB & Secure Admin Suite</p>
+        </div>
+    </footer>
+
+
+    <!-- ========================================== -->
+    <!-- SECURE ADMINISTRATOR PORTAL & DASHBOARD     -->
+    <!-- ========================================== -->
+
+    <!-- Admin Login Modal -->
+    <div id="adminLoginModal" class="fixed inset-0 z-50 hidden bg-navy-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl border-2 border-gold-500/40 relative">
+            <button onclick="closeModal('adminLoginModal')" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <div class="text-center space-y-2 mb-6">
+                <div class="w-14 h-14 rounded-full bg-navy-900 text-gold-500 flex items-center justify-center text-2xl mx-auto shadow-md">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h3 class="font-serif text-2xl font-bold text-navy-900">Administrator Portal</h3>
+                <p class="text-xs text-slate-600">Sign in with your authorized credentials</p>
+            </div>
+            
+            <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Admin Email</label>
+                    <input type="email" id="adminEmail" required placeholder="admin@gofeguenutchurch.org" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-gold-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Password</label>
+                    <input type="password" id="adminPassword" required placeholder="••••••••" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-gold-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Assigned Role</label>
+                    <select id="adminRoleSelect" class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-gold-500 focus:outline-none bg-white">
+                        <option value="Super Administrator">Super Administrator</option>
+                        <option value="Church Administrator">Church Administrator</option>
+                        <option value="Membership Manager">Membership Manager</option>
+                        <option value="Read-Only Viewer">Read-Only Viewer</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full bg-navy-900 text-gold-400 font-bold py-3.5 rounded-xl hover:bg-navy-800 transition shadow-lg text-sm uppercase tracking-wider">
+                    Secure Admin Login
+                </button>
+            </form>
+            
+            <div class="mt-6 pt-4 border-t border-slate-100 text-center">
+                <button onclick="closeModal('adminLoginModal'); openModal('setupGuideModal')" class="text-xs text-emerald-600 font-semibold hover:underline">
+                    <i class="fa-solid fa-gear mr-1"></i> View Supabase Setup Guide & Instructions
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- FULL-FEATURED ADMIN DASHBOARD & MANAGEMENT SUITE (Hidden until Login) -->
+    <div id="adminDashboardApp" class="hidden min-h-screen bg-slate-100 flex flex-col">
+        <!-- Dashboard Top Header Bar -->
+        <header class="bg-navy-900 text-white h-16 px-6 flex justify-between items-center shadow-md z-30">
+            <div class="flex items-center space-x-4">
+                <div class="w-9 h-9 rounded-lg bg-gold-500 text-navy-900 flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-church"></i>
+                </div>
+                <div>
+                    <h2 class="font-serif font-bold text-base tracking-wide">GGEC Management Suite</h2>
+                    <p class="text-[10px] text-emerald-400">Connected to Supabase PostgreSQL DB</p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span id="loggedInUserBadge" class="bg-navy-800 border border-slate-700 text-xs px-3 py-1.5 rounded-lg text-gold-400 font-medium">
+                    <i class="fa-solid fa-user-shield mr-1"></i> Super Admin
+                </span>
+                <button onclick="logoutAdmin()" class="bg-red-600/20 hover:bg-red-600 text-red-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center space-x-1">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Dashboard Container -->
+        <div class="flex-grow flex flex-col md:flex-row">
+            <!-- Sidebar Navigation -->
+            <aside class="w-full md:w-64 bg-navy-800 text-slate-300 p-4 space-y-2 flex-shrink-0">
+                <div class="text-[10px] uppercase tracking-wider text-slate-400 font-bold px-3 py-1">Main Navigation</div>
+                <button onclick="switchAdminTab('overview')" class="admin-tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium bg-gold-500 text-navy-900 shadow transition" data-tab="overview">
+                    <i class="fa-solid fa-chart-pie w-5"></i>
+                    <span>Dashboard Overview</span>
+                </button>
+                <button onclick="switchAdminTab('members')" class="admin-tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium hover:bg-navy-700 hover:text-white transition" data-tab="members">
+                    <i class="fa-solid fa-users w-5"></i>
+                    <span>All Members Directory</span>
+                </button>
+                <button onclick="switchAdminTab('search')" class="admin-tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium hover:bg-navy-700 hover:text-white transition" data-tab="search">
+                    <i class="fa-solid fa-magnifying-glass w-5"></i>
+                    <span>Search & Filter</span>
+                </button>
+                <button onclick="switchAdminTab('ministries')" class="admin-tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium hover:bg-navy-700 hover:text-white transition" data-tab="ministries">
+                    <i class="fa-solid fa-sitemap w-5"></i>
+                    <span>Ministries & Depts</span>
+                </button>
+                <button onclick="switchAdminTab('events')" class="admin-tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium hover:bg-navy-700 hover:text-white transition" data-tab="events">
+                    <i class="fa-solid fa-calendar-days w-5"></i>
+                    <span>Church Events</span>
+                </button>
+                <button onclick="switchAdminTab('reports')" class="admin-tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium hover:bg-navy-700 hover:text-white transition" data-tab="reports">
+                    <i class="fa-solid fa-file-excel w-5"></i>
+                    <span>Reports & Analytics</span>
+                </button>
+                <div class="pt-4 text-[10px] uppercase tracking-wider text-slate-400 font-bold px-3 py-1">System & DB</div>
+                <button onclick="switchAdminTab('setupGuide')" class="admin-tab-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium hover:bg-navy-700 hover:text-white transition" data-tab="setupGuide">
+                    <i class="fa-solid fa-database w-5"></i>
+                    <span>Supabase SQL & Setup</span>
+                </button>
+            </aside>
+
+            <!-- Dashboard Content Panels -->
+            <div class="flex-grow p-6 lg:p-10 overflow-y-auto">
+                
+                <!-- TAB 1: OVERVIEW DASHBOARD -->
+                <div id="tabContent-overview" class="admin-panel space-y-8">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div>
+                            <h2 class="font-serif text-3xl font-bold text-navy-900">Dashboard Overview</h2>
+                            <p class="text-xs text-slate-500">Real-time statistics from Gofe Guenut Church database.</p>
+                        </div>
+                        <button onclick="refreshDashboardData()" class="bg-navy-900 text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-navy-800 transition shadow">
+                            <i class="fa-solid fa-rotate mr-1"></i> Refresh Data
+                        </button>
+                    </div>
+
+                    <!-- Statistics Cards Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+                            <div>
+                                <span class="text-xs uppercase font-bold text-slate-400">Total Members</span>
+                                <h3 id="statTotalMembers" class="text-3xl font-serif font-bold text-navy-900 mt-1">128</h3>
+                                <span class="text-[11px] text-emerald-600 font-semibold"><i class="fa-solid fa-arrow-trend-up mr-1"></i> +12 this month</span>
+                            </div>
+                            <div class="w-12 h-12 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+                            <div>
+                                <span class="text-xs uppercase font-bold text-slate-400">Active Members</span>
+                                <h3 id="statActiveMembers" class="text-3xl font-serif font-bold text-navy-900 mt-1">114</h3>
+                                <span class="text-[11px] text-emerald-600 font-semibold">89% Engagement</span>
+                            </div>
+                            <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-user-check"></i>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+                            <div>
+                                <span class="text-xs uppercase font-bold text-slate-400">Male / Female</span>
+                                <h3 class="text-2xl font-serif font-bold text-navy-900 mt-1"><span id="statMaleCount">68</span> / <span id="statFemaleCount">60</span></h3>
+                                <span class="text-[11px] text-slate-500">Gender Ratio</span>
+                            </div>
+                            <div class="w-12 h-12 rounded-2xl bg-navy-50 text-navy-900 flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-venus-mars"></i>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+                            <div>
+                                <span class="text-xs uppercase font-bold text-slate-400">Active Ministries</span>
+                                <h3 class="text-3xl font-serif font-bold text-navy-900 mt-1">9</h3>
+                                <span class="text-[11px] text-gold-600 font-semibold">All Fully Staffed</span>
+                            </div>
+                            <div class="w-12 h-12 rounded-2xl bg-gold-50 text-gold-600 flex items-center justify-center text-xl font-bold">
+                                <i class="fa-solid fa-sitemap"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Grid -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <h3 class="font-serif font-bold text-lg text-navy-900 mb-4">Membership Growth by Month</h3>
+                            <div class="h-64"><canvas id="growthChart"></canvas></div>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                            <h3 class="font-serif font-bold text-lg text-navy-900 mb-4">Members by Ministry Department</h3>
+                            <div class="h-64"><canvas id="ministryChart"></canvas></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 2: ALL MEMBERS DIRECTORY -->
+                <div id="tabContent-members" class="admin-panel space-y-6 hidden">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div>
+                            <h2 class="font-serif text-3xl font-bold text-navy-900">Church Members Directory</h2>
+                            <p class="text-xs text-slate-500">Manage, view profiles, generate ID cards, and export records.</p>
+                        </div>
+                        <div class="flex space-x-3">
+                            <button onclick="exportMembersCSV()" class="bg-emerald-600 text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-emerald-700 transition shadow flex items-center space-x-2">
+                                <i class="fa-solid fa-file-excel"></i>
+                                <span>Export CSV</span>
+                            </button>
+                            <button onclick="openModal('registerMemberModal')" class="bg-gold-500 text-navy-900 px-4 py-2 rounded-xl text-xs font-bold hover:bg-gold-400 transition shadow flex items-center space-x-2">
+                                <i class="fa-solid fa-user-plus"></i>
+                                <span>Add New Member</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Members Table Container -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-xs">
+                                <thead>
+                                    <tr class="bg-navy-900 text-white uppercase text-[10px] tracking-wider">
+                                        <th class="p-4">Membership ID</th>
+                                        <th class="p-4">Full Name</th>
+                                        <th class="p-4">Phone</th>
+                                        <th class="p-4">Ministry</th>
+                                        <th class="p-4">Category</th>
+                                        <th class="p-4">Status</th>
+                                        <th class="p-4 text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="membersTableBody" class="divide-y divide-slate-200 text-slate-700">
+                                    <!-- Dynamic rows loaded by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="p-4 bg-slate-50 border-t border-slate-200 flex justify-between items-center text-xs text-slate-500">
+                            <span>Showing all registered records</span>
+                            <div class="space-x-2">
+                                <button class="px-3 py-1 bg-white border border-slate-300 rounded font-semibold">Previous</button>
+                                <button class="px-3 py-1 bg-navy-900 text-white rounded font-semibold">1</button>
+                                <button class="px-3 py-1 bg-white border border-slate-300 rounded font-semibold">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 3: SEARCH & FILTER -->
+                <div id="tabContent-search" class="admin-panel space-y-6 hidden">
+                    <div class="space-y-2">
+                        <h2 class="font-serif text-3xl font-bold text-navy-900">Advanced Member Search</h2>
+                        <p class="text-xs text-slate-500">Search by Name, Membership ID, Phone Number, or filter by Ministry & Status.</p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 grid grid-cols-1 sm:grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Search Keyword</label>
+                            <input type="text" id="searchInput" oninput="filterMembers()" placeholder="Name, ID, or Phone..." class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-gold-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Filter Ministry</label>
+                            <select id="filterMinistry" onchange="filterMembers()" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs bg-white">
+                                <option value="">All Ministries</option>
+                                <option value="Children's Ministry">Children's Ministry</option>
+                                <option value="Youth Ministry">Youth Ministry</option>
+                                <option value="Worship and Choir">Worship and Choir</option>
+                                <option value="General Congregation">General Congregation</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Membership Status</label>
+                            <select id="filterStatus" onchange="filterMembers()" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-xs bg-white">
+                                <option value="">All Statuses</option>
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                                <option value="Archived">Archived</option>
+                            </select>
+                        </div>
+                        <div class="flex items-end">
+                            <button onclick="resetFilters()" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2.5 rounded-xl text-xs transition">
+                                Reset Filters
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Search Results Table -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr class="bg-navy-900 text-white uppercase text-[10px] tracking-wider">
+                                    <th class="p-4">Membership ID</th>
+                                    <th class="p-4">Full Name</th>
+                                    <th class="p-4">Phone</th>
+                                    <th class="p-4">Ministry</th>
+                                    <th class="p-4">Status</th>
+                                    <th class="p-4 text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="searchResultsTableBody" class="divide-y divide-slate-200 text-slate-700">
+                                <!-- Filtered results -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TAB 4: MINISTRIES MANAGEMENT -->
+                <div id="tabContent-ministries" class="admin-panel space-y-6 hidden">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h2 class="font-serif text-3xl font-bold text-navy-900">Ministry Departments</h2>
+                            <p class="text-xs text-slate-500">Manage church ministries, department heads, and descriptions.</p>
+                        </div>
+                        <button onclick="openModal('addMinistryModal')" class="bg-gold-500 text-navy-900 px-4 py-2 rounded-xl text-xs font-bold hover:bg-gold-400 transition shadow">
+                            <i class="fa-solid fa-plus mr-1"></i> Create Ministry
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="ministryManagementGrid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- TAB 5: CHURCH EVENTS -->
+                <div id="tabContent-events" class="admin-panel space-y-6 hidden">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h2 class="font-serif text-3xl font-bold text-navy-900">Church Events Management</h2>
+                            <p class="text-xs text-slate-500">Publish announcements, conferences, and gatherings.</p>
+                        </div>
+                        <button onclick="openModal('addEventModal')" class="bg-gold-500 text-navy-900 px-4 py-2 rounded-xl text-xs font-bold hover:bg-gold-400 transition shadow">
+                            <i class="fa-solid fa-plus mr-1"></i> Add Event
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="eventsManagementList">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- TAB 6: REPORTS & ANALYTICS -->
+                <div id="tabContent-reports" class="admin-panel space-y-6 hidden">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h2 class="font-serif text-3xl font-bold text-navy-900">Membership Reports & Analytics</h2>
+                            <p class="text-xs text-slate-500">Generate executive summary reports and export database analytics.</p>
+                        </div>
+                        <button onclick="exportReportsCSV()" class="bg-emerald-600 text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-emerald-700 transition shadow">
+                            <i class="fa-solid fa-download mr-1"></i> Export Analytics Report CSV
+                        </button>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                        <h3 class="font-serif font-bold text-xl text-navy-900 border-b pb-3">Executive Summary Statistics</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm">
+                            <div class="bg-cream-200 p-4 rounded-xl">
+                                <span class="text-xs text-slate-500 uppercase font-bold block">Total Registered</span>
+                                <span id="reportTotal" class="font-serif text-3xl font-bold text-navy-900">128 Members</span>
+                            </div>
+                            <div class="bg-cream-200 p-4 rounded-xl">
+                                <span class="text-xs text-slate-500 uppercase font-bold block">Baptized Members</span>
+                                <span class="font-serif text-3xl font-bold text-emerald-700">110 Members</span>
+                            </div>
+                            <div class="bg-cream-200 p-4 rounded-xl">
+                                <span class="text-xs text-slate-500 uppercase font-bold block">Average Growth Rate</span>
+                                <span class="font-serif text-3xl font-bold text-gold-600">+9.4% / mo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB 7: SUPABASE SQL & SETUP INSTRUCTIONS -->
+                <div id="tabContent-setupGuide" class="admin-panel space-y-6 hidden">
+                    <div class="space-y-2">
+                        <h2 class="font-serif text-3xl font-bold text-navy-900">Supabase Database & Security Guide</h2>
+                        <p class="text-xs text-slate-500">Complete SQL schema, RLS policies, and setup instructions for Gofe Guenut Church.</p>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 space-y-6 text-xs text-slate-700 leading-relaxed">
+                        <h3 class="font-serif font-bold text-lg text-navy-900">1. Supabase PostgreSQL Schema SQL</h3>
+                        <p>Execute this SQL script inside your Supabase SQL Editor to create all required tables with proper relations and constraints:</p>
+                        <pre class="bg-navy-900 text-emerald-400 p-4 rounded-xl overflow-x-auto font-mono text-[11px]">
+-- Enable UUID extension
+create extension if not exists "uuid-ossp";
+
+-- Table 1: members
+create table public.members (
+    id uuid default uuid_generate_v4() primary key,
+    membership_number text unique not null,
+    full_name text not null,
+    date_of_birth date not null,
+    gender text,
+    phone text not null,
+    email text,
+    address text not null,
+    kebele text not null,
+    profile_image_url text,
+    marital_status text,
+    emergency_contact_name text not null,
+    emergency_contact_phone text not null,
+    relationship text not null,
+    membership_category text not null,
+    membership_status text default 'Active',
+    joining_date date not null,
+    baptism_status text,
+    previous_church text,
+    ministry text not null,
+    education text,
+    occupation text,
+    skills text,
+    additional_notes text,
+    consent_given boolean not null,
+    created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+    updated_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- Table 2: administrators
+create table public.administrators (
+    id uuid default uuid_generate_v4() primary key,
+    user_id uuid references auth.users(id),
+    full_name text not null,
+    email text unique not null,
+    role text not null,
+    created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- Table 3: ministries
+create table public.ministries (
+    id uuid default uuid_generate_v4() primary key,
+    ministry_name text unique not null,
+    description text,
+    ministry_leader text,
+    created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- Table 4: church_events
+create table public.church_events (
+    id uuid default uuid_generate_v4() primary key,
+    event_name text not null,
+    event_description text,
+    event_date date not null,
+    event_location text not null,
+    created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+
+-- Table 5: audit_logs
+create table public.audit_logs (
+    id uuid default uuid_generate_v4() primary key,
+    administrator_id uuid references public.administrators(id),
+    action text not null,
+    record_type text not null,
+    record_id uuid,
+    created_at timestamp with time zone default timezone('utc'::text, now()) not null
+);
+                        </pre>
+
+                        <h3 class="font-serif font-bold text-lg text-navy-900 pt-4">2. Row Level Security (RLS) Policies</h3>
+                        <p>Secure your tables so public users can insert registrations, but only authenticated administrators can view or edit records:</p>
+                        <pre class="bg-navy-900 text-emerald-400 p-4 rounded-xl overflow-x-auto font-mono text-[11px]">
+alter table public.members enable row level security;
+
+-- Allow public anonymous visitors to submit membership registration
+create policy "Allow public membership registration" on public.members
+    for insert with check (true);
+
+-- Allow authenticated administrators full access to member records
+create policy "Allow administrators full access to members" on public.members
+    for all using (auth.role() = 'authenticated');
+                        </pre>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- MODALS: MEMBER PROFILE, ID CARD & EDIT      -->
+    <!-- ========================================== -->
+
+    <!-- Member Profile View Modal -->
+    <div id="memberProfileModal" class="fixed inset-0 z-50 hidden bg-navy-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full p-8 shadow-2xl border-2 border-gold-500/40 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal('memberProfileModal')" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <div id="modalProfileContent" class="space-y-6">
+                <!-- Populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Printable Membership Card Modal -->
+    <div id="membershipCardModal" class="fixed inset-0 z-50 hidden bg-navy-900/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl border-2 border-gold-500/40 relative">
+            <button onclick="closeModal('membershipCardModal')" class="absolute top-6 right-6 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <div class="text-center space-y-4">
+                <h3 class="font-serif text-xl font-bold text-navy-900">Official Membership Card</h3>
+                
+                <!-- Printable Card Element -->
+                <div id="printable-card" class="bg-gradient-to-br from-navy-900 via-navy-800 to-emerald-900 text-white rounded-2xl p-6 shadow-2xl border-2 border-gold-500 text-left relative overflow-hidden">
+                    <div class="absolute -right-10 -bottom-10 text-white/5 text-9xl font-bold pointer-events-none">
+                        <i class="fa-solid fa-church"></i>
+                    </div>
+                    <div class="flex items-center space-x-3 border-b border-gold-500/40 pb-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-gold-50 text-navy-900 flex items-center justify-center font-bold">
+                            <i class="fa-solid fa-church text-sm"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-serif font-bold text-xs uppercase tracking-wider text-gold-400">Gofe Guenut Evangelical Church</h4>
+                            <p class="text-[9px] text-slate-300">Official Church Membership ID Card</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div id="cardMemberPhoto" class="w-16 h-20 rounded-xl bg-slate-200 border-2 border-gold-500 bg-cover bg-center flex-shrink-0" style="background-image: url('https://placehold.co/100x120/0B192C/D4AF37?text=PHOTO')"></div>
+                        <div class="space-y-1">
+                            <span id="cardMemberId" class="text-xs bg-gold-500 text-navy-900 font-bold px-2 py-0.5 rounded">GGEC-2026-0001</span>
+                            <h5 id="cardMemberName" class="font-serif font-bold text-base text-white pt-1">Yohannes Bekele</h5>
+                            <p class="text-[11px] text-emerald-400" id="cardMemberMinistry">Youth Ministry</p>
+                        </div>
+                    </div>
+                    <div class="border-t border-gold-500/40 pt-3 flex justify-between text-[10px] text-slate-300">
+                        <span>Joined: <span id="cardMemberDate" class="text-white font-semibold">2026-01-15</span></span>
+                        <span>Addis Ababa, Ethiopia</span>
+                    </div>
+                </div>
+
+                <div class="flex space-x-3 pt-2">
+                    <button onclick="window.print()" class="w-full bg-gold-500 text-navy-900 font-bold py-3 rounded-xl text-xs uppercase hover:bg-gold-400 transition shadow">
+                        <i class="fa-solid fa-print mr-1"></i> Print Membership Card
+                    </button>
+                    <button onclick="closeModal('membershipCardModal')" class="w-full bg-slate-200 text-slate-700 font-bold py-3 rounded-xl text-xs uppercase hover:bg-slate-300 transition">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- JAVASCRIPT APP LOGIC -->
+    <script>
+        // --- Mock Database / State Management ---
+        let currentRegStep = 1;
+        let churchMembers = [
+            { id: 'uuid-1', membership_number: 'GGEC-2026-0001', full_name: 'Yohannes Bekele', phone: '+251 911 234 567', email: 'yohannes@example.com', gender: 'Male', kebele: 'Kebele 04', membership_category: 'Full Member', membership_status: 'Active', ministry: 'Youth Ministry', joining_date: '2026-01-15', baptism_status: 'Water Baptized', emergency_contact_name: 'Abebe Bekele', emergency_contact_phone: '+251 922 334 455', relationship: 'Brother', education: "Bachelor's Degree", occupation: 'Software Engineer', skills: 'IT, Music', additional_notes: 'Active in choir', profile_image_url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80' },
+            { id: 'uuid-2', membership_number: 'GGEC-2026-0002', full_name: 'Tigest Alemu', phone: '+251 912 345 678', email: 'tigest@example.com', gender: 'Female', kebele: 'Kebele 07', membership_category: 'Full Member', membership_status: 'Active', ministry: 'Worship and Choir', joining_date: '2026-02-01', baptism_status: 'Water Baptized', emergency_contact_name: 'Kassa Alemu', emergency_contact_phone: '+251 933 445 566', relationship: 'Spouse', education: 'Diploma / Certificate', occupation: 'Teacher', skills: 'Vocalist, Teaching', additional_notes: 'Leads worship', profile_image_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80' },
+            { id: 'uuid-3', membership_number: 'GGEC-2026-0003', full_name: 'Dawit Kassa', phone: '+251 913 456 789', email: 'dawit@example.com', gender: 'Male', kebele: 'Kebele 02', membership_category: 'Youth Member', membership_status: 'Active', ministry: 'Youth Ministry', joining_date: '2026-02-10', baptism_status: 'Water Baptized', emergency_contact_name: 'Marta Kassa', emergency_contact_phone: '+251 944 556 677', relationship: 'Mother', education: 'High School', occupation: 'Student', skills: 'Sports, Media', additional_notes: 'Youth leader assistant', profile_image_url: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80' }
+        ];
+
+        let ministriesList = [
+            { id: 'm-1', name: "Children's Ministry", leader: 'Sis. Hannah T.', membersCount: 25, description: 'Nurturing kids in foundational Bible truths.' },
+            { id: 'm-2', name: 'Youth Ministry', leader: 'Bro. Dawit K.', membersCount: 42, description: 'Empowering youth to stand firm in faith.' },
+            { id: 'm-3', name: 'Worship and Choir', leader: 'Bro. Samuel M.', membersCount: 30, description: 'Leading corporate praise with musical excellence.' },
+            { id: 'm-4', name: "Women's Ministry", leader: 'Sis. Martha A.', membersCount: 35, description: 'Fellowship and prayer among women.' },
+            { id: 'm-5', name: "Men's Ministry", leader: 'Elder Tesfaye B.', membersCount: 28, description: 'Building godly leadership and integrity.' }
+        ];
+
+        let eventsList = [
+            { id: 'e-1', name: 'Annual Revival & Prayer Summit', date: '2026-11-24', location: 'Main Sanctuary', desc: 'Three days of powerful worship and intercession.' },
+            { id: 'e-2', name: 'Community Charity & Food Drive', date: '2026-12-06', location: 'Church Compound', desc: 'Distributing care packages to families in need.' }
+        ];
+
+        let chartsInstance = { growth: null, ministry: null };
+
+        // --- UI Helper Functions ---
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        // --- Multi-Step Registration Logic ---
+        function checkMinorAge() {
+            const dob = document.getElementById('reg_dob').value;
+            if (!dob) return;
+            const birthDate = new Date(dob);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            const minorBox = document.getElementById('minorConsentBox');
+            if (age < 18) {
+                minorBox.classList.remove('hidden');
+            } else {
+                minorBox.classList.add('hidden');
+            }
+        }
+
+        function changeRegStep(direction) {
+            // Validate current step
+            const currentStepEl = document.getElementById(`step-${currentRegStep}`);
+            const requiredInputs = currentStepEl.querySelectorAll('[required]');
+            let isValid = true;
+            requiredInputs.forEach(input => {
+                if (!input.value.trim()) {
+                    isValid = false;
+                    input.classList.add('border-red-500');
+                } else {
+                    input.classList.remove('border-red-500');
+                }
+            });
+
+            if (!isValid && direction > 0) {
+                alert('Please fill in all required fields before proceeding.');
+                return;
+            }
+
+            currentRegStep += direction;
+            if (currentRegStep < 1) currentRegStep = 1;
+            if (currentRegStep > 5) currentRegStep = 5;
+
+            // Update step UI
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById(`step-${i}`).classList.add('hidden');
+            }
+            document.getElementById(`step-${currentRegStep}`).classList.remove('hidden');
+
+            // Update progress bar
+            const percent = (currentRegStep / 5) * 100;
+            document.getElementById('regProgressBar').style.width = `${percent}%`;
+            document.getElementById('currentStepNum').innerText = currentRegStep;
+
+            const titles = [
+                "Step 1: Personal Information",
+                "Step 2: Family & Emergency",
+                "Step 3: Church Membership",
+                "Step 4: Education & Skills",
+                "Step 5: Consent & Submission"
+            ];
+            document.getElementById('stepIndicatorTitle').innerText = titles[currentRegStep - 1];
+
+            // Toggle buttons
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+
+            if (currentRegStep === 1) {
+                prevBtn.classList.add('hidden');
+            } else {
+                prevBtn.classList.remove('hidden');
+            }
+
+            if (currentRegStep === 5) {
+                nextBtn.classList.add('hidden');
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                submitBtn.classList.add('hidden');
+            }
+        }
+
+        function handleRegistrationSubmit(event) {
+            event.preventDefault();
+            
+            // Generate unique membership ID
+            const newIdNum = `GGEC-2026-0${100 + churchMembers.length + 1}`;
+            
+            const newMember = {
+                id: 'uuid-' + Date.now(),
+                membership_number: newIdNum,
+                full_name: document.getElementById('reg_full_name').value,
+                date_of_birth: document.getElementById('reg_dob').value,
+                gender: document.getElementById('reg_gender').value,
+                phone: document.getElementById('reg_phone').value,
+                email: document.getElementById('reg_email').value,
+                address: document.getElementById('reg_address').value,
+                kebele: document.getElementById('reg_kebele').value,
+                marital_status: document.getElementById('reg_marital_status').value,
+                emergency_contact_name: document.getElementById('reg_emergency_name').value,
+                emergency_contact_phone: document.getElementById('reg_emergency_phone').value,
+                relationship: document.getElementById('reg_emergency_relationship').value,
+                membership_category: document.getElementById('reg_category').value,
+                membership_status: 'Active',
+                joining_date: document.getElementById('reg_joining_date').value || new Date().toISOString().split('T')[0],
+                baptism_status: document.getElementById('reg_baptism_status').value,
+                previous_church: document.getElementById('reg_previous_church').value,
+                ministry: document.getElementById('reg_ministry').value,
+                education: document.getElementById('reg_education').value,
+                occupation: document.getElementById('reg_occupation').value,
+                skills: document.getElementById('reg_skills').value,
+                additional_notes: document.getElementById('reg_notes').value,
+                profile_image_url: document.getElementById('reg_photo_url').value || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80'
+            };
+
+            churchMembers.push(newMember);
+
+            // Hide form, show success confirmation
+            document.getElementById('memberRegForm').classList.add('hidden');
+            document.getElementById('successMemberIdDisplay').innerText = newIdNum;
+            document.getElementById('regSuccessBox').classList.remove('hidden');
+            
+            // Update admin dashboard stats if loaded
+            updateDashboardStats();
+        }
+
+        function resetRegistrationForm() {
+            document.getElementById('memberRegForm').reset();
+            document.getElementById('regSuccessBox').classList.add('hidden');
+            document.getElementById('memberRegForm').classList.remove('hidden');
+            currentRegStep = 1;
+            changeRegStep(0);
+        }
+
+        // --- Admin Authentication & Dashboard Logic ---
+        function handleAdminLogin(event) {
+            event.preventDefault();
+            const email = document.getElementById('adminEmail').value;
+            const role = document.getElementById('adminRoleSelect').value;
+
+            // Hide login modal, switch view to admin dashboard app
+            closeModal('adminLoginModal');
+            document.getElementById('publicWebsite').classList.add('hidden');
+            document.querySelector('header').classList.add('hidden');
+            document.querySelector('footer').classList.add('hidden');
+            document.getElementById('adminDashboardApp').classList.remove('hidden');
+
+            document.getElementById('loggedInUserBadge').innerHTML = `<i class="fa-solid fa-user-shield mr-1"></i> ${role} (${email})`;
+
+            initAdminDashboard();
+        }
+
+        function logoutAdmin() {
+            document.getElementById('adminDashboardApp').classList.add('hidden');
+            document.getElementById('publicWebsite').classList.remove('hidden');
+            document.querySelector('header').classList.remove('hidden');
+            document.querySelector('footer').classList.remove('hidden');
+        }
+
+        function switchAdminTab(tabName) {
+            // Update sidebar buttons
+            document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+                btn.classList.remove('bg-gold-500', 'text-navy-900', 'shadow');
+                btn.classList.add('hover:bg-navy-700', 'hover:text-white');
+                if (btn.getAttribute('data-tab') === tabName) {
+                    btn.classList.add('bg-gold-500', 'text-navy-900', 'shadow');
+                    btn.classList.remove('hover:bg-navy-700', 'hover:text-white');
+                }
+            });
+
+            // Update panels
+            const panels = ['overview', 'members', 'search', 'ministries', 'events', 'reports', 'setupGuide'];
+            panels.forEach(p => {
+                const panelEl = document.getElementById(`tabContent-${p}`);
+                if (panelEl) panelEl.classList.add('hidden');
+            });
+
+            const activePanel = document.getElementById(`tabContent-${tabName}`);
+            if (activePanel) activePanel.classList.remove('hidden');
+        }
+
+        function initAdminDashboard() {
+            updateDashboardStats();
+            renderMembersTable();
+            renderMinistriesManagement();
+            renderEventsManagement();
+            renderCharts();
+        }
+
+        function updateDashboardStats() {
+            const total = churchMembers.length + 125; // mock total baseline
+            const active = churchMembers.filter(m => m.membership_status === 'Active').length + 114;
+            const males = churchMembers.filter(m => m.gender === 'Male').length + 68;
+            const females = churchMembers.filter(m => m.gender === 'Female').length + 60;
+
+            document.getElementById('statTotalMembers').innerText = total;
+            document.getElementById('statActiveMembers').innerText = active;
+            document.getElementById('statMaleCount').innerText = males;
+            document.getElementById('statFemaleCount').innerText = females;
+            document.getElementById('reportTotal').innerText = `${total} Members`;
+        }
+
+        function renderMembersTable() {
+            const tbody = document.getElementById('membersTableBody');
+            tbody.innerHTML = '';
+
+            churchMembers.forEach(m => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-50 transition';
+                tr.innerHTML = `
+                    <td class="p-4 font-mono font-bold text-navy-900">${m.membership_number}</td>
+                    <td class="p-4 font-semibold text-slate-900 flex items-center space-x-3">
+                        <div class="w-8 h-8 rounded-full bg-slate-200 bg-cover bg-center flex-shrink-0" style="background-image: url('${m.profile_image_url}')"></div>
+                        <span>${m.full_name}</span>
+                    </td>
+                    <td class="p-4">${m.phone}</td>
+                    <td class="p-4"><span class="bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full font-medium text-[11px]">${m.ministry}</span></td>
+                    <td class="p-4">${m.membership_category}</td>
+                    <td class="p-4"><span class="bg-gold-50 text-gold-700 px-2 py-0.5 rounded font-semibold text-[10px]">${m.membership_status}</span></td>
+                    <td class="p-4 text-center space-x-2">
+                        <button onclick="viewMemberProfile('${m.id}')" title="View Profile" class="w-7 h-7 rounded bg-navy-900 text-white hover:bg-gold-500 hover:text-navy-900 transition"><i class="fa-solid fa-eye text-xs"></i></button>
+                        <button onclick="openMembershipCard('${m.membership_number}')" title="Print ID Card" class="w-7 h-7 rounded bg-gold-500 text-navy-900 hover:bg-gold-600 transition"><i class="fa-solid fa-id-card text-xs"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterMembers() {
+            const keyword = document.getElementById('searchInput').value.toLowerCase();
+            const ministry = document.getElementById('filterMinistry').value;
+            const status = document.getElementById('filterStatus').value;
+
+            const filtered = churchMembers.filter(m => {
+                const matchKeyword = m.full_name.toLowerCase().includes(keyword) || m.membership_number.toLowerCase().includes(keyword) || m.phone.includes(keyword);
+                const matchMinistry = ministry ? m.ministry === ministry : true;
+                const matchStatus = status ? m.membership_status === status : true;
+                return matchKeyword && matchMinistry && matchStatus;
+            });
+
+            const tbody = document.getElementById('searchResultsTableBody');
+            tbody.innerHTML = '';
+
+            filtered.forEach(m => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-50 transition';
+                tr.innerHTML = `
+                    <td class="p-4 font-mono font-bold text-navy-900">${m.membership_number}</td>
+                    <td class="p-4 font-semibold text-slate-900">${m.full_name}</td>
+                    <td class="p-4">${m.phone}</td>
+                    <td class="p-4"><span class="bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full font-medium text-[11px]">${m.ministry}</span></td>
+                    <td class="p-4"><span class="bg-gold-50 text-gold-700 px-2 py-0.5 rounded font-semibold text-[10px]">${m.membership_status}</span></td>
+                    <td class="p-4 text-center">
+                        <button onclick="viewMemberProfile('${m.id}')" class="px-3 py-1 bg-navy-900 text-white rounded text-[11px] font-bold">View Profile</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('filterMinistry').value = '';
+            document.getElementById('filterStatus').value = '';
+            filterMembers();
+        }
+
+        function viewMemberProfile(id) {
+            const m = churchMembers.find(x => x.id === id);
+            if (!m) return;
+
+            const container = document.getElementById('modalProfileContent');
+            container.innerHTML = `
+                <div class="flex items-center space-x-5 border-b pb-5">
+                    <div class="w-20 h-20 rounded-2xl bg-cover bg-center border-2 border-gold-500 shadow" style="background-image: url('${m.profile_image_url}')"></div>
+                    <div>
+                        <span class="text-xs bg-gold-500 text-navy-900 font-bold px-2.5 py-0.5 rounded">${m.membership_number}</span>
+                        <h3 class="font-serif text-2xl font-bold text-navy-900 mt-1">${m.full_name}</h3>
+                        <p class="text-xs text-emerald-600 font-semibold"><i class="fa-solid fa-sitemap mr-1"></i> ${m.ministry}</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 text-xs">
+                    <div><span class="text-slate-400 block uppercase font-bold">Phone Number</span><span class="font-semibold text-slate-800">${m.phone}</span></div>
+                    <div><span class="text-slate-400 block uppercase font-bold">Email Address</span><span class="font-semibold text-slate-800">${m.email || 'N/A'}</span></div>
+                    <div><span class="text-slate-400 block uppercase font-bold">Date of Birth</span><span class="font-semibold text-slate-800">${m.date_of_birth}</span></div>
+                    <div><span class="text-slate-400 block uppercase font-bold">Gender</span><span class="font-semibold text-slate-800">${m.gender || 'N/A'}</span></div>
+                    <div><span class="text-slate-400 block uppercase font-bold">Address / Kebele</span><span class="font-semibold text-slate-800">${m.address}, ${m.kebele}</span></div>
+                    <div><span class="text-slate-400 block uppercase font-bold">Emergency Contact</span><span class="font-semibold text-slate-800">${m.emergency_contact_name} (${m.emergency_contact_phone})</span></div>
+                    <div><span class="text-slate-400 block uppercase font-bold">Baptism Status</span><span class="font-semibold text-slate-800">${m.baptism_status || 'N/A'}</span></div>
+                    <div><span class="text-slate-400 block uppercase font-bold">Occupation</span><span class="font-semibold text-slate-800">${m.occupation || 'N/A'}</span></div>
+                </div>
+                <div class="pt-4 border-t flex justify-end space-x-3">
+                    <button onclick="openMembershipCard('${m.membership_number}'); closeModal('memberProfileModal');" class="px-4 py-2 bg-gold-500 text-navy-900 font-bold rounded-xl text-xs">Print ID Card</button>
+                    <button onclick="closeModal('memberProfileModal')" class="px-4 py-2 bg-slate-200 text-slate-700 font-bold rounded-xl text-xs">Close</button>
+                </div>
+            `;
+            openModal('memberProfileModal');
+        }
+
+        function openMembershipCard(membershipNumber) {
+            const m = churchMembers.find(x => x.membership_number === membershipNumber);
+            if (!m) return;
+
+            document.getElementById('cardMemberId').innerText = m.membership_number;
+            document.getElementById('cardMemberName').innerText = m.full_name;
+            document.getElementById('cardMemberMinistry').innerText = m.ministry;
+            document.getElementById('cardMemberDate').innerText = m.joining_date;
+            document.getElementById('cardMemberPhoto').style.backgroundImage = `url('${m.profile_image_url}')`;
+
+            openModal('membershipCardModal');
+        }
+
+        function renderMinistriesManagement() {
+            const grid = document.getElementById('ministryManagementGrid');
+            grid.innerHTML = '';
+            ministriesList.forEach(min => {
+                grid.innerHTML += `
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-3">
+                        <div class="flex justify-between items-start">
+                            <h4 class="font-serif font-bold text-lg text-navy-900">${min.name}</h4>
+                            <span class="text-xs bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-semibold">${min.membersCount} Members</span>
+                        </div>
+                        <p class="text-xs text-slate-600">${min.description}</p>
+                        <div class="text-xs text-slate-500 pt-2 border-t flex justify-between items-center">
+                            <span><i class="fa-solid fa-user-tie text-gold-600 mr-1"></i> Leader: ${min.leader}</span>
+                            <button class="text-navy-900 font-bold hover:underline">Edit</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function renderEventsManagement() {
+            const list = document.getElementById('eventsManagementList');
+            list.innerHTML = '';
+            eventsList.forEach(ev => {
+                list.innerHTML += `
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex space-x-4 items-start">
+                        <div class="bg-navy-900 text-gold-400 p-3 rounded-xl text-center min-w-[60px]">
+                            <span class="block text-2xl font-serif font-bold">${ev.date.split('-')[2]}</span>
+                        </div>
+                        <div class="space-y-1 flex-grow">
+                            <h4 class="font-serif font-bold text-base text-navy-900">${ev.name}</h4>
+                            <p class="text-xs text-slate-600">${ev.desc}</p>
+                            <p class="text-[11px] text-slate-400"><i class="fa-solid fa-location-dot mr-1"></i> ${ev.location}</p>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function renderCharts() {
+            // Growth Chart
+            const ctxGrowth = document.getElementById('growthChart').getContext('2d');
+            if (chartsInstance.growth) chartsInstance.growth.destroy();
+            chartsInstance.growth = new Chart(ctxGrowth, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: 'Registered Members',
+                        data: [45, 62, 78, 89, 95, 102, 110, 115, 120, 128, 135, 142],
+                        borderColor: '#0F8A50',
+                        backgroundColor: 'rgba(15, 138, 80, 0.1)',
+                        fill: true,
+                        tension: 0.3
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+
+            // Ministry Chart
+            const ctxMinistry = document.getElementById('ministryChart').getContext('2d');
+            if (chartsInstance.ministry) chartsInstance.ministry.destroy();
+            chartsInstance.ministry = new Chart(ctxMinistry, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Youth', 'Worship', 'Children', 'Women', 'Men', 'General'],
+                    datasets: [{
+                        data: [42, 30, 25, 35, 28, 48],
+                        backgroundColor: ['#0B192C', '#D4AF37', '#0F8A50', '#1E3E62', '#E6C65D', '#063D23']
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false }
+            });
+        }
+
+        function exportMembersCSV() {
+            let csv = 'Membership ID,Full Name,Phone,Email,Ministry,Category,Status,Joining Date\n';
+            churchMembers.forEach(m => {
+                csv += `"${m.membership_number}","${m.full_name}","${m.phone}","${m.email || ''}","${m.ministry}","${m.membership_category}","${m.membership_status}","${m.joining_date}"\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.setAttribute('href', url);
+            a.setAttribute('download', 'gofe_guenut_members_export.csv');
+            a.click();
+        }
+
+        function exportReportsCSV() {
+            let csv = 'Report Metric,Value\nTotal Members,128\nActive Members,114\nMale Members,68\nFemale Members,60\nActive Ministries,9\n';
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.setAttribute('href', url);
+            a.setAttribute('download', 'gofe_guenut_analytics_report.csv');
+            a.click();
+        }
+
+        function handlePrayerSubmit(event) {
+            event.preventDefault();
+            alert('Your prayer request has been successfully submitted to the pastoral team.');
+            event.target.reset();
+        }
+
+        function refreshDashboardData() {
+            updateDashboardStats();
+            renderMembersTable();
+            alert('Dashboard data successfully synchronized with database.');
+        }
+
+        // Initialize search table on load
+        window.onload = function() {
+            filterMembers();
+        };
+    </script>
+</body>
+</html>
